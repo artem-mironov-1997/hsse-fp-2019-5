@@ -16,26 +16,37 @@
 	?- grandson(X,Y).
 	?- descendent(X,Y).
 
-% X является внуком для Y только если отец Х является сыном для Y
-grandson(X,Y) :- father(Y, Z), father(Z,X).
+% Проверка, является ли X братом Y и наоборот
+brother(X,Y) :- father(F, X), father(F, Y), dif (X, Y).
+:- forall(brother(X,Y), (write(X), write(' and '), write(Y), writeln(" are brothers"))).
+%% b and c are brothers
+%% c and b are brothers
+%% d and e are brothers
+%% e and d are brothers
 
-% ?- grandson(a,d). true
-% ?- grandson(e,c). false
+% Проверка, является ли Y дедом для X и наоборот
+grandson(X,Y) :- father(Y, F), father(F, X).
+:- forall(grandson(X,Y), (write(X), write(' is grandson for '), writeln(Y))).
+%% d is grandson for a
+%% e is grandson for a
+%% f is grandson for a
 
-% Х и Y братья только если отцом каждого из них является один и тот же человек, при этом Х и Y - разные.
-brother(X,Y) :- dif(X,Y), father(Z,X), father(Z,Y).
+% Проверка, является ли X двоюродным братом Y и наоборот
+cousin(X,Y) :- father(FX,X), father(FY,Y), brother(FX,FY).
+:- forall(cousin(X,Y), (write(X), write(' and '), write(Y), writeln(" are cousins"))).
+%% d and f are cousins
+%% e and f are cousins
+%% f and d are cousins
+%% f and e are cousins
 
-% ?- brother(b,c). true
-% ?- brother(a,d). false
-
-% X является потомком Y только если кто то из потомков У или сам Y является отцом X
+% Проверка, является ли Y потомком X
 descendent(X,Y) :- father(Y,X); father(F,X), descendent(F,Y).
-
-% ?- descendent(a,b). true
-% ?- descendent(c,e). false
-
-% Х и Y двоюродные братья только если их отцы являются братьями.
-cousin(X,Y) :- father(Za,X), father(Zb,Y), brother(Za,Zb).
-
-% ?- cousin(b,c). false
-% ?- cousin(e,f). true
+:- forall(descendent(X,Y), (write(X), write(' is descendent for '), writeln(Y))).
+%% b is descendent for a
+%% c is descendent for a
+%% d is descendent for b
+%% e is descendent for b
+%% f is descendent for c
+%% d is descendent for a
+%% e is descendent for a
+%% f is descendent for a

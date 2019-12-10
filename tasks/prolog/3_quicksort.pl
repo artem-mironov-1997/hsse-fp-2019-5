@@ -1,14 +1,23 @@
 % Определить предикат qsort(L, K) который для заданного списка целых чисел возвращает отсортированный
 
-prepare(_,[],[],[]).
-prepare(Sorted,[Head|Tail],[Head|L1],L2) :- Head =< Sorted, prepare(Sorted,Tail,L1,L2).
-prepare(Sorted,[Head|Tail],L1,[Head|L2]) :- Head > Sorted, prepare(Sorted,Tail,L1,L2).
+mass(_,[],[],[]).
 
-quicksort([Head|Tail],R) :-
-    prepare(Head,[Head|Tail],[H1|L1],L2),
-    quicksort(L1,R1), quicksort(L2,R2),
+% Head - H, T - tail
+mass(sort,[H|T],[H|L1],L2) :- 	
+	H =< sort, 
+	mass(sort,T,L1,L2).
+	
+mass(sort,[H|T],L1,[H|L2]) :- 
+	H > sort, 
+	mass(sort,T,L1,L2).
+
+qsort([H|T],R) :-
+    mass(H,[H|T],[H1|L1],L2),
+    qsort(L1,R1), 
+	qsort(L2,R2),
     append(R1,[H1|R2],R).
-quicksort([],[]).
+	
+qsort([],[]).
 
-% ?- quicksort([5,4,3,6],A).
-% ?- quicksort([],A).
+?- qsort([3,4,1,6],K), writeln(K).
+% [1,3,4,6]
