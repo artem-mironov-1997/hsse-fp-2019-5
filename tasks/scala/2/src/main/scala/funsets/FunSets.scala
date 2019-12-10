@@ -20,31 +20,31 @@ object FunSets {
   /**
    * Returns the set of the one given element.
    */
-    def singletonSet(elem: Int): Set = (x: Int) => x == elem
+    def singletonSet(elem: Int): Set = v => v == elem
   
 
   /**
    * Returns the union of the two given sets,
    * the sets of all elements that are in either `s` or `t`.
    */
-    def union(s: Set, t: Set): Set = (x: Int) => contains(s, x) || contains(t, x)
+    def union(s: Set, t: Set): Set = a => s(a) || t(a)
   
   /**
    * Returns the intersection of the two given sets,
    * the set of all elements that are both in `s` and `t`.
    */
-    def intersect(s: Set, t: Set): Set = (x: Int) => contains(s, x) && contains(t, x)
+    def intersect(s: Set, t: Set): Set = a => s(a) && t(a)
   
   /**
    * Returns the difference of the two given sets,
    * the set of all elements of `s` that are not in `t`.
    */
-    def diff(s: Set, t: Set): Set = (x: Int) => contains(s, x) && !contains(t, x)
+    def diff(s: Set, t: Set): Set = a => s(a) && !t(a)
   
   /**
    * Returns the subset of `s` for which `p` holds.
    */
-    def filter(s: Set, p: Int => Boolean): Set = intersect(s, p)
+    def filter(s: Set, p: Int => Boolean): Set = a => s(a) && p(a)
   
 
   /**
@@ -57,8 +57,8 @@ object FunSets {
    */
     def forall(s: Set, p: Int => Boolean): Boolean = {
     def iter(a: Int): Boolean = {
-      if (contains(diff(s,p), a)) false
-      else if (a == bound) true
+      if (a > bound) true
+      else if (contains(s, a)) p(a) && iter(a + 1)
       else iter(a + 1)
     }
     iter(-bound)
@@ -69,18 +69,18 @@ object FunSets {
    * that satisfies `p`.
    */
     def exists(s: Set, p: Int => Boolean): Boolean = {
-    def iter(a: Int): Boolean = {
-      if (contains(intersect(s,p), a)) true
-      else if (a == bound) false
-      else iter(a + 1)
+      def iter(a: Int): Boolean = {
+        if (a > bound) false
+        else if (contains(s, a)) p(a) || iter(a + 1)
+        else iter(a + 1)
+      }
+      iter(-bound)
     }
-    iter(-bound)
-  }
   
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-    def map(s: Set, f: Int => Int): Set = (y: Int) => exists(s, (x: Int) => f(x) == y) 
+    def map(s: Set, f: Int => Int): Set = (y: Int) => exists(s, (x: Int) => f(x) == y)
   
   /**
    * Displays the contents of a set
