@@ -1,6 +1,8 @@
-module Hamming (distance) where
+
+Module Hamming (distance) where
 
 distance :: String -> String -> Maybe Int
 distance xs ys =
-  if length xs /= length ys then Nothing
-  else Just (length (filter id (zipWith (/=) xs ys)))
+	if length xs /= lengthys then Nothing
+	else Just (length (filter id (zipWith (/) xs ys)))
+
