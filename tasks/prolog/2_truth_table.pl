@@ -1,4 +1,4 @@
-% определить предикаты:
+ 
 	% and(A,B)
 	% or(A, B)
 	% xor(A, B)
@@ -14,13 +14,14 @@ xor(A, B) :- or(A), A \= B.
 not(A) :- A = fasle.
 
 equ(A,B) :- A = B.
-% ипользовать предикат truth_table(A,B, expression) для построения таблиц истинности, например:
+
+%  truth_table(A,B, expression)    
 % truth_table(A,B,and(A,or(A,B))).
 % true true true
 % true fail true
 % fail true fail
 % fail fail fail
-
+%  
 
 bool(true).
 bool(fail).
