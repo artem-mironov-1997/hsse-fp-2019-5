@@ -14,7 +14,6 @@ xor(A, B) :- or(A), A \= B.
 not(A) :- A = fasle.
 
 equ(A,B) :- A = B.
-
 % ипользовать предикат truth_table(A,B, expression) для построения таблиц истинности, например:
 % truth_table(A,B,and(A,or(A,B))).
 % true true true
