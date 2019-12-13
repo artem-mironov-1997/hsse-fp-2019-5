@@ -12,6 +12,6 @@ qsort([X|TAIL],SORTLIST) :-break2(X, TAIL, S, L),
 			   conc(SORTS,[X|SORTL],SORTLIST).
 
 
-%qsort([5,4,3,6],A).
-% A = [3, 4, 5, 6]
+%qsort([2,6,1,4],A).
+% A = [1, 2, 4, 6]
 
