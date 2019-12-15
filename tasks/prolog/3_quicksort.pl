@@ -8,6 +8,6 @@ qsort([Root|Tail], Sorted):-
     qsort(RightSide, SortedRight),
     append(SortLeft, [Root|SortedRight],Sorted).
 
-partition(_,[],[],[]).
 partition(Root, [Head|Tail], [Head|LeftSide], RightSide):- Head =< Root, partition(Root,  Tail, LeftSide, RightSide).
 partition(Root, [Head|Tail], LeftSide, [Head|RightSide]) :- Head >= Root, partition(Root, Tail, LeftSide, RightSide).
+partition(_,[],[],[]).
