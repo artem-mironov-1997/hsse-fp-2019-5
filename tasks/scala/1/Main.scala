@@ -10,6 +10,11 @@ object Rextester {
     val listChars = List('(', ')', '(', ')', '(', ')', ')')
     println("Balance parentheses: " + listChars)
     println(balance(listChars))
+
+    val money = 7
+    val coins = List(1, 2)
+    println("Change: cash - " + money + ", coins - " + coins)
+    println(countChange(money, coins))
   }
 
   /**
@@ -47,7 +52,12 @@ object Rextester {
    * there is 1 way to give change for 5 if you have coins with denomiation
    * 2 and 3: 2+3.
    */
-  /*def countChange(money: Int, coins: List[Int]): Int = {
-
-  }*/
+  def countChange(money: Int, coins: List[Int]): Int = {
+    if (coins.isEmpty || money < 0)
+      0
+    else if (money == 0)
+      1
+    else
+      countChange(money - coins.head, coins) + countChange(money, coins.tail)
+  }
 }
