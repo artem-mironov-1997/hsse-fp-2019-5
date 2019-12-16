@@ -6,6 +6,10 @@ object Rextester {
         print(pascal(col, row) + " ")
       println()
     }
+
+    val listChars = List('(', ')', '(', ')', '(', ')', ')')
+    println("Balance parentheses: " + listChars)
+    println(balance(listChars))
   }
 
   /**
@@ -21,9 +25,20 @@ object Rextester {
   /**
    * Exercise 2 Parentheses Balancing
    */
-  /*def balance(chars: List[Char]): Boolean = {
+  def balance(chars: List[Char]): Boolean = {
+    paranthesesBalanceIsHarmony(chars)
+  }
 
-  }*/
+  private def paranthesesBalanceIsHarmony(chars: List[Char], paranthesesCount: Int = 0): Boolean = {
+    (chars, paranthesesCount) match {
+      case (Nil, num) => num == 0
+      case (ch :: tail, paranthesesCount) =>
+        if (paranthesesCount < 0) false
+        if (ch.toInt == 40) paranthesesBalanceIsHarmony(tail, paranthesesCount + 1)
+        if (ch.toInt == 41) paranthesesBalanceIsHarmony(tail, paranthesesCount - 1)
+        else paranthesesBalanceIsHarmony(tail, paranthesesCount)
+    }
+  }
 
   /**
    * Exercise 3 Counting Change
