@@ -1,4 +1,7 @@
 module Hamming (distance) where
 
 distance :: String -> String -> Maybe Int
-distance xs ys = error "Implementation is lost..."
+-- | filter - функция фильтрации
+-- | id - вывод
+-- | zipWith - упаковка агрументов по правилу
+distance xs ys = length (filter id (zipWith (/=) xs ys))
