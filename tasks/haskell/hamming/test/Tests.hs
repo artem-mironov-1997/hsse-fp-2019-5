@@ -101,4 +101,9 @@ cases = [ Case { description = "empty strands"
                , strand2     = "AGTG"
                , expected    = Nothing
                }
+        , Case { description = "digits"
+               , strand1     = "01021454503"
+               , strand2     = "91424494002"
+               , expected    = Just 6
+               }
         ]
