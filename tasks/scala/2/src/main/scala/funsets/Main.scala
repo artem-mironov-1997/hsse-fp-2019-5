@@ -20,5 +20,9 @@ object Main extends App {
   var lhsAndRhsFiltered = filter(lhsUnion, rhsUnion)
   println(s"${FunSets.toString(lhsUnion)} filtred by ${FunSets.toString(rhsUnion)} is ${FunSets.toString(lhsAndRhsFiltered)}")
 
+  val doesSetContainOnlyPositiveNumbers = exists(lhsUnion, entry => entry > 0)
+  println(s"Does set ${FunSets.toString(lhsUnion)} contains only positive numbers? ${doesSetContainOnlyPositiveNumbers}")
 
+  val multipliedLhsSet = map(lhsUnion, entry => entry * 2)
+  println(s"Set ${FunSets.toString(lhsUnion)} multiplied by 2 is: ${FunSets.toString(multipliedLhsSet)}")
 }
