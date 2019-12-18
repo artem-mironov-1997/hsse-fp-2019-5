@@ -19,11 +19,20 @@ object Main {
     else pascal(c - 1, r - 1) + pascal(c, r - 1)
   }
 
-  /**
+ /**
    * Exercise 2 Parentheses Balancing
    */
   def balance(chars: List[Char]): Boolean = {
-   
+    def iterate(processingChars: List[Char], amountOfParantheses: Int): Boolean = {
+      if (processingChars.isEmpty || amountOfParantheses < 0) amountOfParantheses
+      processingChars.head match {
+        case '(' => iterate(processingChars.tail, amountOfParantheses + 1)
+        case ')' => iterate(processingChars.tail, amountOfParantheses - 1)
+        case _ => iterate(processingChars.tail, amountOfParantheses)
+      }
+    }
+
+    iterate(chars, 0)
   }
 
   /**
