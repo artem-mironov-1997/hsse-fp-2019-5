@@ -11,6 +11,12 @@ object Main extends App {
   var additionalSet = singletonSet(3)
   var lhsUnion = union(additionalSet, lhsEntrySet)
   var rhsUnion = union(additionalSet, rhsEntrySet)
-  val createdIntersect = intersect(lhsUnion, rhsUnion)
-  println(s"Intersect between ${FunSets.toString(lhsUnion)} and ${FunSets.toString(rhsUnion)} is: ${FunSets.toString(createdIntersect)}")
+  val lhsAndRhsIntersect = intersect(lhsUnion, rhsUnion)
+  println(s"Intersect between ${FunSets.toString(lhsUnion)} and ${FunSets.toString(rhsUnion)} is: ${FunSets.toString(lhsAndRhsIntersect)}")
+
+  var lhsAndRhsDifference = diff(lhsUnion, rhsUnion)
+  println(s"Difference between ${FunSets.toString(lhsUnion)} and ${FunSets.toString(rhsUnion)} is: ${FunSets.toString(lhsAndRhsDifference)}")
+
+  var lhsAndRhsFiltered = filter(lhsUnion, rhsUnion)
+  print(s"${FunSets.toString(lhsUnion)} filtred by ${FunSets.toString(rhsUnion)} is ${FunSets.toString(lhsAndRhsFiltered)}")
 }
