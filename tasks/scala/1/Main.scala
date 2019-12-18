@@ -43,6 +43,14 @@ object Main {
    * 2 and 3: 2+3.
    */
   def countChange(money: Int, coins: List[Int]): Int = {
+    def change(money: Int, coins: List[Int]): Int = {
+      // NOTE: Return 0 ways if no money have been found
+      if (money < 0 || coins.isEmpty) 0
+      // NOTE: If no change is found, there's only 1 way
+      else if (money == 0) 1
+      else change(money, coins.tail) + change(money - coins.head, coins)
+    }
 
+    change(money, coins)
   }
 }
