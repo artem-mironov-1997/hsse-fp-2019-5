@@ -18,5 +18,7 @@ object Main extends App {
   println(s"Difference between ${FunSets.toString(lhsUnion)} and ${FunSets.toString(rhsUnion)} is: ${FunSets.toString(lhsAndRhsDifference)}")
 
   var lhsAndRhsFiltered = filter(lhsUnion, rhsUnion)
-  print(s"${FunSets.toString(lhsUnion)} filtred by ${FunSets.toString(rhsUnion)} is ${FunSets.toString(lhsAndRhsFiltered)}")
+  println(s"${FunSets.toString(lhsUnion)} filtred by ${FunSets.toString(rhsUnion)} is ${FunSets.toString(lhsAndRhsFiltered)}")
+
+
 }
