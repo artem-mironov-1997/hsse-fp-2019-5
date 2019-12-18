@@ -33,7 +33,9 @@ object FunSets {
    * Returns the intersection of the two given sets,
    * the set of all elements that are both in `s` and `t`.
    */
-    def intersect(s: Set, t: Set): Set = ???
+    def intersect(s: Set, t: Set): Set = { entry =>
+      contains(s, entry) && !contains(t, entry)
+    }
   
   /**
    * Returns the difference of the two given sets,
