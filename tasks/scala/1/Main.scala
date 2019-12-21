@@ -1,4 +1,4 @@
-
+import scala.collection.mutable.ListBuffer
 
 object Main {
   def main(args: Array[String]) {
@@ -8,32 +8,38 @@ object Main {
         print(pascal(col, row) + " ")
       println()
     }
+      println(balance(List('(', ')', '(', 'x', ')')))
+      println(countChange(5, List(3,2)))
   }
 
-  
   /**
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
-    if (c == 0 || c == r) 1
-    else pascal(c - 1, r - 1) + pascal(c, r - 1)
+    if (c == 0 || r == 0) 1
+    else pascal(c - 1, r - 1) + pascal(c - 1, r)
   }
 
   /**
    * Exercise 2 Parentheses Balancing
    */
   def balance(chars: List[Char]): Boolean = {
-    def iterate(chars: List[Char], bal: Int): Boolean = {
-      if (chars.isEmpty) bal == 0
-      else if (bal < 0) false
-      else chars.head match {
-        case '(' => iterate(chars.tail, bal + 1)
-        case ')' => iterate(chars.tail, bal - 1)
-        case _ => iterate(chars.tail, bal)
+    def f(chars: List[Char], numOpens: Int): Boolean = {
+      if (chars.isEmpty) {
+        numOpens == 0
+      } else {
+        val h = chars.head
+        val n =
+          if (h == '(') numOpens + 1
+          else if (h == ')') numOpens - 1
+          else numOpens
+        if (n >= 0) f(chars.tail, n)
+        else false
       }
     }
 
-    iterate(chars, 0)
+    f(chars, 0)
+   
   }
 
   /**
@@ -44,12 +50,30 @@ object Main {
    * 2 and 3: 2+3.
    */
   def countChange(money: Int, coins: List[Int]): Int = {
-    def count(m: Int, c: List[Int]) : Int = {
-      if (c.isEmpty) 0
-      else if (m - c.head == 0) 1
-      else if (m - c.head < 0) 0
-      else countChange(m - c.head, c) + countChange(m, c.tail)
+    	def f(lastMaxCoin_total_coll: List[(Int, Int)], count: Int): Int = {
+      if (lastMaxCoin_total_coll.isEmpty) {
+        count
+      } else {
+        val b = ListBuffer[(Int, Int)]()
+        var newCount = count
+        for ((lastMaxCoin, total) <- lastMaxCoin_total_coll) {
+          if (total < money) {
+            for (c <- coins) {
+              if (c >= lastMaxCoin) {
+                val e = (c, total + c)
+                b += e
+              }
+            }
+          } else if (total == money) {
+            newCount += 1
+          }
+        }
+
+        f(b.toList, newCount)
+      }
     }
-    count(money, coins.sorted)
+
+    val b = coins.map { c => (c, c) }
+    f(b, 0)
   }
 }
