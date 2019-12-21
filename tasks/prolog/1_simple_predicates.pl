@@ -12,44 +12,20 @@
 	father(c,f).  % 5
 % указать в каком порядке и какие ответы генерируются вашими методами
 
+	brother(X,Y):- father(Z,X), father(Z,Y), X \= Y.
+	cousin(X,Y):- brother(Z,W), father(Z,X), father(W,Y), X \= Y.
+	grandson(X,Y):- father(Y,Z), father(Z,X).
+	descendent(X,Y):- father(Y,X).
+	descendent(X,Y):- father(Y,Z), descendent(X,Z).
 
-brother(X,Y) :- father(Z,Y), father(Z,X), X\=Y.
+:- writeln('List of brothers:').
+:- forall(brother(X,Y), (write(X), write(' and '), writeln(Y))).
 
-cousin(X,Y) :- father(Z,K), father(Z,L), father(K,X), father(L,Y), K\=L.
+:- writeln('List of cousins:').
+:- forall(cousin(X,Y), (write(X), write(' and '), writeln(Y))).
 
-grandson(X,Y) :- father(Y,Z),father(Z,X).
+:- writeln('List of grandsons:').
+:- forall(grandson(X,Y), (write(X), write(' is grandson '), writeln(Y))).
 
-descendent(X,Y) :-
-	father(Y,X); 
-	grandson(X,Y).
-	
-% forall( brother(X,Y), format('% ~w brother of ~w~n', [X, Y])).
-% c brother of b
-% b brother of c
-% e brother of d
-% d brother of e
-% true.
-
-% forall( cousin(X,Y), format('% ~w cousin of ~w~n', [X, Y])).
-% d cousin of f
-% e cousin of f
-% f cousin of d
-% f cousin of e
-% true.
-
-% forall( grandson(X,Y), format('% ~w grandson of ~w~n', [X, Y])).
-% d grandson of a
-% e grandson of a
-% f grandson of a
-% true.
-
-% forall( descendent(X,Y), format('% ~w descendent of ~w~n', [X, Y])).
-% b descendent of a
-% c descendent of a
-% d descendent of b
-% e descendent of b
-% f descendent of c
-% d descendent of a
-% e descendent of a
-% f descendent of a
-% true.
+:- writeln('List descendents:').
+:- forall(descendent(X,Y), (write(X), write(' is descendent '), writeln(Y))).

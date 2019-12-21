@@ -1,23 +1,13 @@
 % определить предикат mrg(L1, L2, R) который для двух отсортированных списков L1 и L2 
 % определяет список R, составленный из этих элементов
+merge([], List, List).
 
-mrg([H1|L1],[H2|L2],[H1|R]) :-
-    H1 < H2,
-    mrg(L1,[H2|L2],R).
+merge(List, [], List).
 
-mrg([H1|L1],[H2|L2],[H2|R]) :-
-    H1 >= H2,
-    mrg([H1|L1],L2,R).
+merge([], [], []).
 
-mrg([],L,L).
+merge([Head1|Tail1], [Head2|Tail2], [Head1|TailRes]) :-
+    Head1 < Head2, merge(Tail1, [Head2|Tail2], TailRes), !.
 
-mrg(L,[],L).
-
-% ?- mrg([], [], R).
-% R = []
-
-% ?- mrg([2],[3],R).
-% R = [2, 3]
-
-% ?- mrg([3],[2],R).
-% R = [2, 3]
+merge([Head1|Tail1], [Head2|Tail2], [Head2|TailRes]) :-
+    merge([Head1|Tail1], Tail2, TailRes).
