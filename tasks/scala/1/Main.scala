@@ -54,4 +54,6 @@ object Main {
     }
     return r(-1, money)
   }
+
+}
 }
