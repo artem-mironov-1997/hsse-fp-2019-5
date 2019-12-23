@@ -55,15 +55,13 @@ object FunSets {
   /**
    * Returns whether all bounded integers within `s` satisfy `p`.
    */
-  def forall(s: Set, p: Int => Boolean): Boolean = {
+   def forall(s: Set, p: Int => Boolean): Boolean = {
     def iter(a: Int): Boolean = {
-      if (contains(diff(s, p), a)) false
-      else if (a == bound) true
+      if (a > bound) true
+      else if (contains(s, a) && !p(a)) false
       else iter(a + 1)
     }
-
     iter(-bound)
-  }
 
   /**
    * Returns whether there exists a bounded integer within `s`
