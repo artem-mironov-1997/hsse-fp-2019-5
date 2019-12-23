@@ -12,5 +12,6 @@ split(X, [Y|Tail], [Y|Small], Big) :-X > Y, split(X, Tail, Small, Big).
 split(X, [Y|Tail], Small, [Y|Big]) :-split(X, Tail, Small, Big).
 
 /** <examples>
-?- quicksort([6,4,8,1,6,2,3], K)
+?- quicksort([6,4,8,1,6,2,3], R)
+R = [1, 2, 3, 4, 6, 6, 8]
 */

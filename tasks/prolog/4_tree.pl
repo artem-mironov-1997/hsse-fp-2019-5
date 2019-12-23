@@ -43,5 +43,5 @@ balanced_tree(L, T) :-
 	btree(R, T).
 
 
-% gibalanced_tree([12, 1, 6, 7, 8, 15, 4, 5, 3], R).
+% balanced_tree([12, 1, 6, 7, 8, 15, 4, 5, 3], R).
 % R = instant(6, instant(4, instant(3, instant(1, empty, empty), empty), instant(5, empty, empty)), instant(12, instant(8, instant(7, empty, empty), empty), instant(15, empty, empty)))
