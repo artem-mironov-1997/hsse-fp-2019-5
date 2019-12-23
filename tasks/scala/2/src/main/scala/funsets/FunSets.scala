@@ -62,7 +62,7 @@ object FunSets {
       else iter(a + 1)
     }
     iter(-bound)
-
+}
   /**
    * Returns whether there exists a bounded integer within `s`
    * that satisfies `p`.
