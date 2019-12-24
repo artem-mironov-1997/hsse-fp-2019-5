@@ -18,7 +18,6 @@ object Main {
     println("Change: cash - " + money + ", coins - " + coins)
     println(countChange(money, coins))
   }
-
   /**
    * Exercise 1
    */
@@ -26,7 +25,6 @@ object Main {
     if (c == 0 || c == r) 1
     else pascal(c - 1, r - 1) + pascal(c, r - 1)
   }
-
   /**
    * Exercise 2 Parentheses Balancing
    */
@@ -41,10 +39,8 @@ object Main {
           else return func(tail, num)
       }
     }
-
     func(chars, 0)
   }
-
   /**
    * Exercise 3 Counting Change
    * Write a recursive function that counts how many different ways you can make
