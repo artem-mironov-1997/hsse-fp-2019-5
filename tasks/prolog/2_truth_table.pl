@@ -4,13 +4,11 @@ xor(A,B) :- A\=B.
 not(A) :- \+A.
 equ(A,B) :- A=B.
 
-
 evaluate(Expression, true) :- Expression, !.
 evaluate(_, fail).
 
 bool(true).
 bool(fail).
-
 
 truth_table(A,B,Expression) :-
 	bool(A),
