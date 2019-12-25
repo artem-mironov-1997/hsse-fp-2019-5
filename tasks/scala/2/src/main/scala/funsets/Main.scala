@@ -1,6 +1,9 @@
 package funsets
 
-object Main extends App {
+object Rextester {
   import FunSets._
-  println(contains(singletonSet(1), 1))
+
+  def main(args: Array[String]) {
+    println(contains(singletonSet(1), 1))
+  }
 }
