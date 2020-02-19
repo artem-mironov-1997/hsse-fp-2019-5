@@ -6,7 +6,7 @@ object Main {
         print(pascal(col, row) + " ")
       println()
     }
-    println(balance(List(')', '(', '(', ')', ')', '(')))
+    println(balance(List(')','(', '(', ')', ')', '(')))
     println(countChange(13, List(5, 3, 2)))
   }
 
@@ -22,7 +22,16 @@ object Main {
    * Exercise 2 Parentheses Balancing
    */
   def balance(chars: List[Char]): Boolean = {
-    chars.count(_ == '(') == chars.count(_ == ')')
+
+    def checkBalance(brackets: List[Char], cntr: Int): Boolean = {
+      if (cntr < 0) return false
+      if (brackets.size == 0) {
+        return cntr == 0
+      }
+      return checkBalance(brackets.slice(1, brackets.size), cntr + (if (brackets.apply(0) == '(') 1 else -1))
+    }
+
+    return checkBalance(chars, 0)
   }
 
   /**
@@ -34,17 +43,18 @@ object Main {
    */
   def countChange(money: Int, coins: List[Int]): Int = {
 
-    def countNumVariants(currentSum: Int, coinIndex: Int): Int = {
-      var numVariants : Int = 0
-      if (currentSum == money) return 1
-      if (currentSum > money) return 0
-      for (i <- 0 to coins.size - 1) {
-        if (i >= coinIndex)
-          numVariants += countNumVariants(currentSum + coins.apply(i), i)
-      }
-      return numVariants
+    def countNVars(summ: Int, numCoin: Int): Int = {
+      if (summ > money) return 0
+      if (summ == money) return 1
+
+      // Calculating sum of resursive function results for all coins from the current numCoin
+      // map applies countNVar function to coins' indexes list
+      // Each recursive call accumulates summ of money
+      // The cost of the next coin during calculation is not greater than current coin (to avoid odd repeats of counting)
+
+      return (numCoin to coins.size-1).map(i => countNVars(summ + coins.apply(i), i)).reduce(_ + _)
     }
 
-    countNumVariants(0, 0)
+    countNVars(0, 0)
   }
 }
