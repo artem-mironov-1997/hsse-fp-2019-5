@@ -4,7 +4,7 @@ father(b,d).  % 3
 father(b,e).  % 4
 father(c,f).  % 5
 
-brother(A,B):- father(C,A), father(C,B).
+brother(A,B):- A \= B, father(C,A), father(C,B).
 
 cousin(A,B):-  father(C,A), father(D,B), brother(D,C).
 
